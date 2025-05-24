@@ -1,9 +1,3 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
-app.use(cors());
-app.use(express.json());
-
 const teeth = {
     "11": "Incisivo Central Superior Direito",
     "12": "Incisivo Lateral Superior Direito",
@@ -38,28 +32,11 @@ const teeth = {
     "37": "Segundo Molar Inferior Esquerdo",
     "38": "Terceiro Molar Inferior Esquerdo",
 };
-const support_sentences = [
-  "Bom demais!", "Vamos que vamos!", "Aí sim!", "Booa!", "Tá mandando bem!",
-];
 
-// Random question
-app.get('/api/question', (req, res) => {
-  const keys = Object.keys(teeth);
-  const randomCode = keys[Math.floor(Math.random() * keys.length)];
-  const image = `/images/${randomCode}.png`;
-  res.json({ code: randomCode, name: teeth[randomCode], image });
-});
 
-// Verify response
-app.post('/api/verify', (req, res) => {
-  const { guess, actual } = req.body;
-  if (guess === actual) {
-    const message = support_sentences[Math.floor(Math.random() * support_sentences.length)];
-    res.json({ correct: true, message });
-  } else {
-    res.json({ correct: false, message: `Resposta correta: ${actual}` });
+export default function handler(req, res) {
+    const keys = Object.keys(teeth);
+    const randomCode = keys[Math.floor(Math.random() * keys.length)];
+    const image = `/images/${randomCode}.png`;
+    res.json({ code: randomCode, name: teeth[randomCode], image });
   }
-});
-
-const PORT = 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
