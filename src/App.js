@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Analytics } from "@vercel/analytics/next"
 
 function App() {
   const [question, setQuestion] = useState(null);
@@ -50,6 +51,7 @@ function App() {
       <h1 className="text-2xl font-bold text-blue-700 text-center mb-6">
         Guia de Estudo<br />Anatomia Dentária
       </h1>
+      <Analytics />
 
         {question?.image && (
           <img
